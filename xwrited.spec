@@ -24,11 +24,11 @@ to display the notifications.
 tail -n 23 README >LICENSE
 # can't get the makefile to work
 touch data/xwrited.1
-make %{?_smp_mflags}
+%make_build CFLAGS="%{optflags}"
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make prefix="$RPM_BUILD_ROOT%{_prefix}" sysconfdir="$RPM_BUILD_ROOT%{_sysconfdir}" install
+rm -rf "$RPM_BUILD_ROOT"
+%make_install prefix="%{_prefix}" sysconfdir="%{_sysconfdir}"
 rm -f "$RPM_BUILD_ROOT%{_prefix}/share/man/man1/xwrited.1"
 
 %files
